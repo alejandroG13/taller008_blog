@@ -1,0 +1,333 @@
+<main class="container">
+  <div class="nav-scroller py-1 mb-2">
+    <nav class="nav d-flex justify-content-between">
+      <div
+        class="btn-toolbar"
+        role="toolbar"
+        aria-label="Toolbar with button groups"
+      >
+        <div class="container"
+        style="align-content: center;">
+          <div class="btn-group me-2" role="group" aria-label="First group">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              (click)="abrirModal(modalCrearBlog, blogSeleccionado)"
+            >
+              Colombia
+            </button>
+            <button
+              type="button"
+              class="btn btn-secondary"
+              (click)="abrirModal(modalCrearBlog, blogSeleccionado)"
+            >
+              Technology
+            </button>
+            <button
+              type="button"
+              class="btn btn-secondary"
+              (click)="abrirModal(modalCrearBlog, blogSeleccionado)"
+            >
+              Design
+            </button>
+            <button
+              type="button"
+              class="btn btn-secondary"
+              (click)="abrirModal(modalCrearBlog, blogSeleccionado)"
+            >
+              Culture
+            </button>
+            <button
+              type="button"
+              class="btn btn-secondary"
+              (click)="abrirModal(modalCrearBlog, blogSeleccionado)"
+            >
+              Busines
+            </button>
+            <button
+              type="button"
+              class="btn btn-secondary"
+              (click)="abrirModal(modalCrearBlog, blogSeleccionado)"
+            >
+              Politics
+            </button>
+            <button
+              type="button"
+              class="btn btn-secondary"
+              (click)="abrirModal(modalCrearBlog, blogSeleccionado)"
+            >
+              Opinion
+            </button>
+            <button
+              type="button"
+              class="btn btn-secondary"
+              (click)="abrirModal(modalCrearBlog, blogSeleccionado)"
+            >
+              Sience
+            </button>
+            <button
+              type="button"
+              class="btn btn-secondary"
+              (click)="abrirModal(modalCrearBlog, blogSeleccionado)"
+            >
+              Health
+            </button>
+            <button
+              type="button"
+              class="btn btn-secondary"
+              (click)="abrirModal(modalCrearBlog, blogSeleccionado)"
+            >
+              Syle
+            </button>
+            <button
+              type="button"
+              class="btn btn-secondary"
+              (click)="abrirModal(modalCrearBlog, blogSeleccionado)"
+            >
+              Travel
+            </button>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </div>
+
+  <div class="p-4 p-md-5 mb-4 text-white rounded bg-dark">
+    <div class="col-md-6 px-0">
+      <h1 class="display-4 fst-italic">Mi BLOGCITO! </h1>
+      <p class="lead my-3">
+        El mejor lugar de la red para postear y compartir informacion que no desinforma
+      </p>
+      <p class="lead mb-0">
+        <a href="#" class="text-white fw-bold">Continue reading...</a>
+      </p>
+    </div>
+  </div>
+
+  <div class="row mb-2">
+    <div
+      class="col-md-6"
+      *ngFor="let objBlog of blogArreglo"
+      [class.active]="objBlog == blogSeleccionado"
+    >
+      <div
+        class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative"
+      >
+        <div class="col p-4 d-flex flex-column position-static">
+          <strong class="d-inline-block mb-2 text-primary">{{
+            objBlog.categoria
+          }}</strong>
+          <h3 class="mb-0">{{ objBlog.titulo }}</h3>
+          <div class="mb-1 text-muted">{{ objBlog.fecha }}</div>
+          <p class="card-text mb-auto text-truncate">
+            {{ objBlog.contendio }}
+          </p>
+          <br />
+          <div class="btn-group" role="group">
+            <button type="button" class="btn btn-sm btn-outline-secondary"
+            (click)="abrirModal(modalActualizarBlog, objBlog)">
+              ACTUALIZAR
+            </button>
+            <button
+              type="button"
+              class="btn btn-sm btn-outline-secondary"
+              (click)="abrirModal(modalEliminarConfirmar, objBlog)"
+            >
+              ELIMINAR
+            </button>
+          </div>
+        </div>
+        <div class="col-auto d-none d-lg-block">
+          <img
+            [src]="objBlog.fotoBase64"
+            alt="Foto refundida"
+            style="height: 200px; width: 250px"
+            onerror="this.src='../../assets/img/no-image.png';"
+            preserveAspectRatio="xMidYMid slice"
+            focusable="false"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- Plantilla para ventana modal -->
+<ng-template #modalEliminarConfirmar>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">ADVERTENCIA</h4>
+    <button
+      type="button"
+      class="close pull-right"
+      aria-label="Close"
+      (click)="modalRef.hide()"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    ¿Realmente quiere eliminar este registro?
+    <br />
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-warning" (click)="cancelar()">
+      Cancelar
+    </button>
+    <button type="button" class="btn btn-danger" (click)="eliminar()">
+      Eliminar
+    </button>
+  </div>
+</ng-template>
+
+<ng-template #modalCrearBlog>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Crear un nuevo blog</h4>
+    <button
+      type="button"
+      class="close pull-right"
+      aria-label="Close"
+      (click)="modalRef.hide()"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <img
+      [src]="blogSeleccionado.fotoBase64"
+      alt="Foto refundida"
+      style="height: 225; width: 100%"
+      onerror="this.src='../../assets/img/no-image.png';"
+    />
+    <div class="fomr-group">
+      <label for="titulo">Titulo</label>
+      <input
+        type="text-light"
+        class="form-control"
+        id="titulo"
+        name="titulo"
+        [(ngModel)]="blogSeleccionado.titulo"
+      />
+      <br />
+      <label for="titulo">Fecha</label>
+      <input
+        type="date"
+        class="form-control"
+        id="fecha"
+        name="fecha"
+        [(ngModel)]="blogSeleccionado.fecha"
+      />
+      <br />
+
+      <label for="titulo">Contenido</label>
+      <div class="input-group-append">
+        <textarea
+          class="form-control"
+          id="nombre_asign"
+          name="nombre_asign"
+          [(ngModel)]="blogSeleccionado.contendio"
+        ></textarea>
+        &nbsp;&nbsp;
+        <button
+          type="button"
+          class="btn-info btn-sm"
+          (click)="fileInput.click()"
+        >
+          <span>+</span>
+          <input
+            type="file"
+            name="fotico"
+            style="display: none"
+            #fileInput
+            (change)="seleccionarFoto($event)"
+          />
+        </button>
+      </div>
+    </div>
+    ¿Desea crear este blog?<br />
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-warning" (click)="cancelar()">
+      Cancelar
+    </button>
+    <button type="button" class="btn btn-success" (click)="procesarBlog()">
+      Crear
+    </button>
+  </div>
+</ng-template>
+
+<ng-template #modalActualizarBlog>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Aztualizar este blog</h4>
+    <button
+      type="button"
+      class="close pull-right"
+      aria-label="Close"
+      (click)="modalRef.hide()"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <img
+      [src]="blogSeleccionado.fotoBase64"
+      alt="Foto refundida"
+      style="height: 225; width: 100%"
+      onerror="this.src='../../assets/img/no-image.png';"
+    />
+    <div class="fomr-group">
+      <label for="titulo">Titulo</label>
+      <input
+        type="text-light"
+        class="form-control"
+        id="titulo"
+        name="titulo"
+        [(ngModel)]="blogSeleccionado.titulo"
+      />
+      <br />
+      <label for="titulo">Fecha</label>
+      <input
+        type="date"
+        class="form-control"
+        id="fecha"
+        name="fecha"
+        [(ngModel)]="blogSeleccionado.fecha"
+      />
+      <br />
+
+      <label for="titulo">Contenido</label>
+      <div class="input-group-append">
+        <textarea
+          class="form-control"
+          id="nombre_asign"
+          name="nombre_asign"
+          [(ngModel)]="blogSeleccionado.contendio"
+        ></textarea>
+        &nbsp;&nbsp;
+        <button
+          type="button"
+          class="btn-info btn-sm"
+          (click)="fileInput.click()"
+        >
+          <span>+</span>
+          <input
+            type="file"
+            name="fotico"
+            style="display: none"
+            #fileInput
+            (change)="seleccionarFoto($event)"
+          />
+        </button>
+      </div>
+    </div>
+    ¿Actualizar blog?<br />
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-warning" (click)="cancelar()">
+      Cancelar
+    </button>
+    <button type="button" class="btn btn-success" (click)="procesarBlog()">
+      Actualizar
+    </button>
+  </div>
+</ng-template>
+
